@@ -1110,6 +1110,8 @@ GDScriptParser::VariableNode *GDScriptParser::parse_variable(bool p_is_static) {
 GDScriptParser::VariableNode *GDScriptParser::parse_variable(bool p_is_static, bool p_allow_property) {
 	VariableNode *variable = alloc_node<VariableNode>();
 
+	make_completion_context(COMPLETION_DECLARATION, variable);
+
 	if (!consume(GDScriptTokenizer::Token::IDENTIFIER, R"(Expected variable name after "var".)")) {
 		complete_extents(variable);
 		return nullptr;
@@ -1345,6 +1347,8 @@ void GDScriptParser::parse_property_getter(VariableNode *p_variable) {
 
 GDScriptParser::ConstantNode *GDScriptParser::parse_constant(bool p_is_static) {
 	ConstantNode *constant = alloc_node<ConstantNode>();
+
+	make_completion_context(COMPLETION_DECLARATION, constant);
 
 	if (!consume(GDScriptTokenizer::Token::IDENTIFIER, R"(Expected constant name after "const".)")) {
 		complete_extents(constant);

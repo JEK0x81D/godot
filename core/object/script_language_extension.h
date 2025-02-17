@@ -469,7 +469,7 @@ public:
 		r_result.type = LookupResultType(int(ret["type"]));
 
 		r_result.class_name = ret.get("class_name", "");
-		r_result.class_member = ret.get("class_member", "");
+		r_result.class_member_or_local_name = ret.get("class_member", "");
 
 		r_result.description = ret.get("description", "");
 		r_result.is_deprecated = ret.get("is_deprecated", false);

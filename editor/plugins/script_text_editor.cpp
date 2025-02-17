@@ -981,63 +981,63 @@ void ScriptTextEditor::_lookup_symbol(const String &p_symbol, int p_row, int p_c
 				case ScriptLanguage::LOOKUP_RESULT_CLASS_CONSTANT: {
 					StringName cname = result.class_name;
 					while (ClassDB::class_exists(cname)) {
-						if (ClassDB::has_integer_constant(cname, result.class_member, true)) {
+						if (ClassDB::has_integer_constant(cname, result.class_member_or_local_name, true)) {
 							result.class_name = cname;
 							break;
 						}
 						cname = ClassDB::get_parent_class(cname);
 					}
-					emit_signal(SNAME("go_to_help"), "class_constant:" + result.class_name + ":" + result.class_member);
+					emit_signal(SNAME("go_to_help"), "class_constant:" + result.class_name + ":" + result.class_member_or_local_name);
 				} break;
 				case ScriptLanguage::LOOKUP_RESULT_CLASS_PROPERTY: {
 					StringName cname = result.class_name;
 					while (ClassDB::class_exists(cname)) {
-						if (ClassDB::has_property(cname, result.class_member, true)) {
+						if (ClassDB::has_property(cname, result.class_member_or_local_name, true)) {
 							result.class_name = cname;
 							break;
 						}
 						cname = ClassDB::get_parent_class(cname);
 					}
-					emit_signal(SNAME("go_to_help"), "class_property:" + result.class_name + ":" + result.class_member);
+					emit_signal(SNAME("go_to_help"), "class_property:" + result.class_name + ":" + result.class_member_or_local_name);
 				} break;
 				case ScriptLanguage::LOOKUP_RESULT_CLASS_METHOD: {
 					StringName cname = result.class_name;
 					while (ClassDB::class_exists(cname)) {
-						if (ClassDB::has_method(cname, result.class_member, true)) {
+						if (ClassDB::has_method(cname, result.class_member_or_local_name, true)) {
 							result.class_name = cname;
 							break;
 						}
 						cname = ClassDB::get_parent_class(cname);
 					}
-					emit_signal(SNAME("go_to_help"), "class_method:" + result.class_name + ":" + result.class_member);
+					emit_signal(SNAME("go_to_help"), "class_method:" + result.class_name + ":" + result.class_member_or_local_name);
 				} break;
 				case ScriptLanguage::LOOKUP_RESULT_CLASS_SIGNAL: {
 					StringName cname = result.class_name;
 					while (ClassDB::class_exists(cname)) {
-						if (ClassDB::has_signal(cname, result.class_member, true)) {
+						if (ClassDB::has_signal(cname, result.class_member_or_local_name, true)) {
 							result.class_name = cname;
 							break;
 						}
 						cname = ClassDB::get_parent_class(cname);
 					}
-					emit_signal(SNAME("go_to_help"), "class_signal:" + result.class_name + ":" + result.class_member);
+					emit_signal(SNAME("go_to_help"), "class_signal:" + result.class_name + ":" + result.class_member_or_local_name);
 				} break;
 				case ScriptLanguage::LOOKUP_RESULT_CLASS_ENUM: {
 					StringName cname = result.class_name;
 					while (ClassDB::class_exists(cname)) {
-						if (ClassDB::has_enum(cname, result.class_member, true)) {
+						if (ClassDB::has_enum(cname, result.class_member_or_local_name, true)) {
 							result.class_name = cname;
 							break;
 						}
 						cname = ClassDB::get_parent_class(cname);
 					}
-					emit_signal(SNAME("go_to_help"), "class_enum:" + result.class_name + ":" + result.class_member);
+					emit_signal(SNAME("go_to_help"), "class_enum:" + result.class_name + ":" + result.class_member_or_local_name);
 				} break;
 				case ScriptLanguage::LOOKUP_RESULT_CLASS_ANNOTATION: {
-					emit_signal(SNAME("go_to_help"), "class_annotation:" + result.class_name + ":" + result.class_member);
+					emit_signal(SNAME("go_to_help"), "class_annotation:" + result.class_name + ":" + result.class_member_or_local_name);
 				} break;
 				case ScriptLanguage::LOOKUP_RESULT_CLASS_TBD_GLOBALSCOPE: { // Deprecated.
-					emit_signal(SNAME("go_to_help"), "class_global:" + result.class_name + ":" + result.class_member);
+					emit_signal(SNAME("go_to_help"), "class_global:" + result.class_name + ":" + result.class_member_or_local_name);
 				} break;
 				case ScriptLanguage::LOOKUP_RESULT_SCRIPT_LOCATION:
 				case ScriptLanguage::LOOKUP_RESULT_LOCAL_CONSTANT:
@@ -1129,60 +1129,60 @@ void ScriptTextEditor::_show_symbol_tooltip(const String &p_symbol, int p_row, i
 			case ScriptLanguage::LOOKUP_RESULT_CLASS_CONSTANT: {
 				StringName cname = result.class_name;
 				while (ClassDB::class_exists(cname)) {
-					if (ClassDB::has_integer_constant(cname, result.class_member, true)) {
+					if (ClassDB::has_integer_constant(cname, result.class_member_or_local_name, true)) {
 						result.class_name = cname;
 						break;
 					}
 					cname = ClassDB::get_parent_class(cname);
 				}
-				doc_symbol = "constant|" + result.class_name + "|" + result.class_member;
+				doc_symbol = "constant|" + result.class_name + "|" + result.class_member_or_local_name;
 			} break;
 			case ScriptLanguage::LOOKUP_RESULT_CLASS_PROPERTY: {
 				StringName cname = result.class_name;
 				while (ClassDB::class_exists(cname)) {
-					if (ClassDB::has_property(cname, result.class_member, true)) {
+					if (ClassDB::has_property(cname, result.class_member_or_local_name, true)) {
 						result.class_name = cname;
 						break;
 					}
 					cname = ClassDB::get_parent_class(cname);
 				}
-				doc_symbol = "property|" + result.class_name + "|" + result.class_member;
+				doc_symbol = "property|" + result.class_name + "|" + result.class_member_or_local_name;
 			} break;
 			case ScriptLanguage::LOOKUP_RESULT_CLASS_METHOD: {
 				StringName cname = result.class_name;
 				while (ClassDB::class_exists(cname)) {
-					if (ClassDB::has_method(cname, result.class_member, true)) {
+					if (ClassDB::has_method(cname, result.class_member_or_local_name, true)) {
 						result.class_name = cname;
 						break;
 					}
 					cname = ClassDB::get_parent_class(cname);
 				}
-				doc_symbol = "method|" + result.class_name + "|" + result.class_member;
+				doc_symbol = "method|" + result.class_name + "|" + result.class_member_or_local_name;
 			} break;
 			case ScriptLanguage::LOOKUP_RESULT_CLASS_SIGNAL: {
 				StringName cname = result.class_name;
 				while (ClassDB::class_exists(cname)) {
-					if (ClassDB::has_signal(cname, result.class_member, true)) {
+					if (ClassDB::has_signal(cname, result.class_member_or_local_name, true)) {
 						result.class_name = cname;
 						break;
 					}
 					cname = ClassDB::get_parent_class(cname);
 				}
-				doc_symbol = "signal|" + result.class_name + "|" + result.class_member;
+				doc_symbol = "signal|" + result.class_name + "|" + result.class_member_or_local_name;
 			} break;
 			case ScriptLanguage::LOOKUP_RESULT_CLASS_ENUM: {
 				StringName cname = result.class_name;
 				while (ClassDB::class_exists(cname)) {
-					if (ClassDB::has_enum(cname, result.class_member, true)) {
+					if (ClassDB::has_enum(cname, result.class_member_or_local_name, true)) {
 						result.class_name = cname;
 						break;
 					}
 					cname = ClassDB::get_parent_class(cname);
 				}
-				doc_symbol = "enum|" + result.class_name + "|" + result.class_member;
+				doc_symbol = "enum|" + result.class_name + "|" + result.class_member_or_local_name;
 			} break;
 			case ScriptLanguage::LOOKUP_RESULT_CLASS_ANNOTATION: {
-				doc_symbol = "annotation|" + result.class_name + "|" + result.class_member;
+				doc_symbol = "annotation|" + result.class_name + "|" + result.class_member_or_local_name;
 			} break;
 			case ScriptLanguage::LOOKUP_RESULT_LOCAL_CONSTANT:
 			case ScriptLanguage::LOOKUP_RESULT_LOCAL_VARIABLE: {
@@ -1197,7 +1197,7 @@ void ScriptTextEditor::_show_symbol_tooltip(const String &p_symbol, int p_row, i
 				item_data["enumeration"] = result.enumeration;
 				item_data["is_bitfield"] = result.is_bitfield;
 				item_data["value"] = result.value;
-				doc_symbol = item_type + "||" + p_symbol + "|" + JSON::stringify(item_data);
+				doc_symbol = item_type + "||" + result.class_member_or_local_name + "|" + JSON::stringify(item_data);
 			} break;
 			case ScriptLanguage::LOOKUP_RESULT_SCRIPT_LOCATION:
 			case ScriptLanguage::LOOKUP_RESULT_CLASS_TBD_GLOBALSCOPE: // Deprecated.

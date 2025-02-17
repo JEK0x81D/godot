@@ -361,9 +361,10 @@ public:
 	struct LookupResult {
 		LookupResultType type;
 
+		String class_member_or_local_name;
+
 		// For `CLASS_*`.
 		String class_name;
-		String class_member;
 
 		// For `LOCAL_*`.
 		String description;

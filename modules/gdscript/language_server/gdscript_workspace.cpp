@@ -721,7 +721,7 @@ const lsp::DocumentSymbol *GDScriptWorkspace::resolve_symbol(const lsp::TextDocu
 							}
 						}
 					} else {
-						String member = ret.class_member;
+						String member = ret.class_member_or_local_name;
 						if (member.is_empty() && symbol_identifier != ret.class_name) {
 							member = symbol_identifier;
 						}
